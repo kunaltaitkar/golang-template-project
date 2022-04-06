@@ -23,15 +23,15 @@ func (u userHandler) Post(response http.ResponseWriter, request *http.Request) {
 	var userDetails model.User
 
 	if err := json.NewDecoder(request.Body).Decode(&userDetails); err != nil {
-		log.Error("invalid request body: %v", err)
-		http.Error(response, "invalid request body: "+err.Error(), http.StatusBadRequest)
+		log.Errorf("invalid request body: %v", err)
+		http.Error(response, "invalid request body", http.StatusBadRequest)
 		return
 	}
 
 	user, err := u.factory.GetUserService().CreateUser(userDetails)
 	if err != nil {
-		log.Error("failed to create user: %v", err)
-		http.Error(response, "failed to create user: "+err.Error(), http.StatusInternalServerError)
+		log.Errorf("failed to create user: %v", err)
+		http.Error(response, "failed to create user", http.StatusInternalServerError)
 		return
 	}
 
@@ -44,8 +44,8 @@ func (u userHandler) Get(response http.ResponseWriter, request *http.Request) {
 	userId := vars["userId"]
 	user, err := u.factory.GetUserService().GetUser(userId)
 	if err != nil {
-		log.Error("failed to create user: %v", err)
-		http.Error(response, "failed to create user: "+err.Error(), http.StatusInternalServerError)
+		log.Errorf("failed to get user: %v", err)
+		http.Error(response, "failed to get user", http.StatusInternalServerError)
 		return
 	}
 	response.Header().Add("content-type", "application/json")

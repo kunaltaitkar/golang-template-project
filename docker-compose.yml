@@ -14,4 +14,4 @@ services:
         environment:
             - SERVER_PORT
         volumes:
-            - .:/go/src/github.com/kunaltaitkar/golang-template-project
+            - .:/golang-template-project

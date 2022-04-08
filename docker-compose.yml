@@ -15,3 +15,14 @@ services:
             - SERVER_PORT
         volumes:
             - .:/golang-template-project
+
+    db:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test_db
+        ports:
+            - "3307:3306"
+        volumes:
+            - /tmp/mysql-data:/var/lib/mysql
